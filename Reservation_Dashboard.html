@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Reservation Page1</title>
+         <link rel="stylesheet" type="text/css" href="styles.css">
+        <style>
+            body {
+                background-color: #1fcecb;
+                text-align: center;
+                
+            }
+            h3 {
+                color: black;
+                text-align: center;
+            }
+            h4 {
+                color: black;
+            }
+            label {
+                color: black;
+                font-weight: bold;
+            }
+            .card{
+                background-color: grey;
+                width: 300px;
+                border: 2px solid gray;
+                margin: 0.5rem;
+                padding: 0.3rem;
+                font-size: 1.2rem;
+            }
+        </style>
+    </head>
+    <body>
+        <article class="card">
+               <h3> Reservation Dashboard </h3>
+        </article>
+        <p> Hello you can view your reservations below:</p>
+        <form action="/profile_page.php">
+            
+            <label for="resDash"> Room Number</label><br>
+                <input type="text" id="resDash" name="res1" value="Hotel Indiana"><br>
+            <br>
+            <label for="DatesRes">Date</label><br>
+                <input type="date" id="DatesRes" name="res2" value="2026-04-13"><br><br>
+            <br>
+                <button type="submit" style="background-color: #4CAF50;">Check-In</button>
+                <button type="submit" style="background-color: black; color: white;">Check-Out</button>
+        </form>

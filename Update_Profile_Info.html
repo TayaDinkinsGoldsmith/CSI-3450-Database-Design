@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Profile Page1</title>
+         <link rel="stylesheet" type="text/css" href="app/static/styles.css">
+        <style>
+            body {
+                background-color: #1fcecb;
+                text-align: center;
+            }
+            h3 {
+                color: black;
+                text-align: left;
+            }
+            h4 {
+                color: black;
+                font-weight: bold;
+            }
+            label {
+                color: black;
+                font-weight: bold;
+            }
+            form {
+                background-color: grey;
+                padding: 30px;
+                border-radius: 10px;
+                max-width: 400px;
+                margin: auto;
+
+            }
+            hr {
+                border-color: green;
+                border-width: 5px;
+            }
+            input{
+                background-color: blue;
+                color: white;
+                
+            }
+            button {
+                    background-color: #4CAF50; /* Green */
+                }
+        </style>
+    </head>
+    <body>
+        <h3>Edit Profile Information: </h3>
+        <h5>Hello you can update the following information below:</h5>
+        <form action="/profile_page.php">
+            
+            
+            <h4>Personal Information:</h4>
+            <label for="fname"> First Name</label><br>
+                <input type="text" id="fname" name="fname" value="John"><br>
+                <br>
+                <label for="lname">Last name</label><br>
+                <input type="text" id="lname" name="lname" value="Doe"><br><br>
+                <br>
+                <label for="dob">Date of Birth</label><br>
+                <input type="Date" id="dob" value="1990-01-01" /><br><br>
+            <hr color=#89f336 size="6">
+            <h4>Contact Information</h4>
+            <label for="mail">Email</label><br>
+                <input type="text" id="mail" value="31Jane@yahoo.com" /><br><br>
+                <br>
+            <label for="phone">Phone Number</label><br>
+                <input type="tel" id="phone"  
+                placeholder="123-456-7890" 
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
+                required/><br><br>
+                <br>
+            <label for="pwd">Password (Minimum of 13 characters)</label><br>
+                <input type="password" id="pwd" minlength="13" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" /><br><br>
+            <label for="confirm_pwd">Password (verification):</label><br>
+                <input type="password" id="confirm_pwd" minlength="13" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" /><br><br>
+            <hr>
+            <h4>Address Information</h4>
+           <label for="street">Street Name</label><br>
+                <input type="text" id="street" value="123 Main Street" /><br><br>
+            <br>
+            <label for="city">City</label><br>
+                <input type="text" id="city" value="RacoonTown" /><br><br>
+                <br>
+            <label for="state">State</label><br>           
+                <input type="text" id="state" value="Indiana" /><br><br>
+            <label for="zip">Zip Code</label><br>
+                <input id="zip" name="zip" type="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$">
+                <br>
+                <br>
+               <button type="button">Save Changes!</button>
+        </form>
+
+
+    </body>
+</html>
