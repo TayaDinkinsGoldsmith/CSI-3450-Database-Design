@@ -1,0 +1,15 @@
+<nav style="margin: 0.8rem auto; max-width: 900px; font-weight: bold; text-align: center;">
+  <a href="/signup" style="color: #083344; margin: 0 0.3rem;">Signup</a> |
+  <a href="/login" style="color: #083344; margin: 0 0.3rem;">Login</a> |
+  <a href="/forgot-password" style="color: #083344; margin: 0 0.3rem;">Forgot Password</a>
+  {% if user %}
+    {% if user.account_type == "CLIENT" %}
+      | <a href="/client-reservations" style="color: #083344; margin: 0 0.3rem;">Client Reservations</a>
+      | <a href="/Update_Profile_Info" style="color: #083344; margin: 0 0.3rem;">Profile</a>
+    {% elif user.account_type == "EMPLOYEE" %}
+      | <a href="/Reservation_Dashboard" style="color: #083344; margin: 0 0.3rem;">Reservation Dashboard</a>
+      | <a href="/Housekeeping_Dashboard" style="color: #083344; margin: 0 0.3rem;">Housekeeping Dashboard</a>
+    {% endif %}
+    | <a href="/logout" style="color: #083344; margin: 0 0.3rem;">Logout</a>
+  {% endif %}
+</nav>

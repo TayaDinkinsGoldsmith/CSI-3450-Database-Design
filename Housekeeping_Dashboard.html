@@ -1,48 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Reservation Page1</title>
-         <link rel="stylesheet" type="text/css" href="styles.css">
-        <style>
-            body {
-                background-color: #1fcecb;
-                text-align: center;
-                
-            }
-            h3 {
-                color: black;
-                text-align: center;
-            }
-            h4 {
-                color: black;
-            }
-            label {
-                color: black;
-                font-weight: bold;
-            }
-            .card{
-                background-color: grey;
-                width: 300px;
-                border: 2px solid gray;
-                margin: 0.5rem;
-                padding: 0.3rem;
-                font-size: 1.2rem;
-            }
-        </style>
-    </head>
-    <body>
-        <article class="card">
-               <h3> Housekeeping Dashboard </h3>
-        </article>
-        <form action="/profile_page.php">
-            
-            <label for="resDash"> Room Number</label><br>
-                <input type="text" id="resDash" name="res1" value="Hotel Indiana"><br>
-            <br>
-            <label for="DatesRes">Date</label><br>
-                <input type="date" id="DatesRes" name="res2" value="2026-04-13"><br><br>
-            <br>
-                <button type="submit" style="background-color: #4CAF50;">Clean</button>
-                <button type="submit" style="background-color: black; color: white;">Needs Service</button>
-        </form>
+<head>
+  <meta charset="UTF-8">
+  <title>Housekeeping Page1</title>
+  <style>
+    body { background-color: #1fcecb; text-align: center; }
+    h3 { color: black; text-align: center; }
+    label { color: black; font-weight: bold; }
+    .card { background-color: grey; width: 300px; border: 2px solid gray; margin: 0.5rem auto; padding: 0.3rem; font-size: 1.2rem; }
+    .msg { max-width: 420px; margin: 0.5rem auto; font-weight: bold; }
+  </style>
+</head>
+<body>
+  {% include "Nav.html" %}
+  <article class="card"><h3>Housekeeping Dashboard</h3></article>
+  {% if feedback %}
+    {% if ok %}<p class="msg" style="color: green;">{{ feedback }}</p>{% else %}<p class="msg" style="color: darkred;">{{ feedback }}</p>{% endif %}
+  {% endif %}
+  {% if room_info.room_status %}
+  <p>ROOM_STATUS: {{ room_info.room_status }} | Reservation: {{ room_info.reservation_status }}</p>
+  {% endif %}
+  <form action="/Housekeeping_Dashboard" method="post">
+    <label for="resDash">Room Number</label><br>
+    <input type="text" id="resDash" name="room_number" value="{{ form_data.room_number }}"><br><br>
+    <label for="DatesRes">Date</label><br>
+    <input type="date" id="DatesRes" name="clean_date" value="{{ form_data.clean_date }}"><br><br>
+    <button type="submit" name="housekeeping_action" value="clean" style="background-color: #4CAF50;">Clean</button>
+    <button type="submit" name="housekeeping_action" value="needs_service" style="background-color: black; color: white;">Needs Service</button>
+  </form>
+</body>
+</html>

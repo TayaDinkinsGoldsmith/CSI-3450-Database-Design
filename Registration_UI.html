@@ -1,96 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset ="UTF-8">
-        <title>Registration</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <style>
-            body {
-                background-color: #1fcecb;
-                text-align: center;            
-            }
-
-            .main {
-                background-color: grey;
-                width: 300px;
-                border: 2px solid gray;
-                margin: 0.5rem auto;
-                padding: 0.3rem;
-                font-size: 1.2rem;
-            }
-
-            .main h2 {
-                color: black;
-                text-align: center;
-            }
-
-            input[type="text"], input[type="email"], input[type="password"] {
-                width: 100%;
-                padding: 12px 20px;
-                margin: 8px 0;
-                display: inline-block;
-                border: 1px solid #ccc;
-                box-sizing: border-box;
-            }
-
-            label {
-                color: black;
-                font-weight: bold;
-            }
-            
-                    button[type="submit"] {
-                        background-color: #1fcecb;
-                        color: white;
-                        border: none;
-                        padding: 10px 20px;
-                        text-align: center;
-                        text-decoration: none;
-                        display: inline-block;
-                        font-size: 16px;
-                        margin: 4px 2px;
-                        cursor: pointer;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="main">
-                    <h2>Registration</h2>
-                    <form action="/registration.php" method=post>
-                        <label for ="fname">First Name</label><br>
-                        <input type="text" id="fname" name="fname" required><br>
-
-                        <label for="lname">Last Name</label><br>
-                        <input type="text" id="lname" name="lname" required><br>
-
-                        <label for="DOB">Date of Birth</label><br>
-                        <input type="date" id="DOB" name="DOB" required><br>
-
-                        <label for="email">Email</label><br>
-                        <input type="email" id="email" name="email" required><br>
-
-                        <label for="password">Password</label><br>
-                        <input type="password" id="password" name="password" required><br>
-
-                        <label for="confirm_password">Confirm Password</label><br>  
-                        <input type="password" id="confirm_password" name="confirm_password" required><br>
-
-                        <label for="phone_number">Phone Number</label><br>
-                        <input type="text" id="phone_number" name="phone_number" required><br>
-
-                        <label for="street">Street</label><br>
-                        <input type="text" id="street" name="street" required><br>
-
-                        <label for="city">City</label><br>
-                        <input type="text" id="city" name="city" required><br>
-
-                        <label for="state">State</label><br>
-                        <input type="text" id="state" name="state" required><br>
-
-                        <label for="zip">Zip Code</label><br>
-                        <input type="text" id="zip" name="zip" required><br>
-
-                        <button type="submit">Register</button>
-                        </form>
-                </div>
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Registration</title>
+  <style>
+    body { background-color: #1fcecb; text-align: center; }
+    .main { background-color: grey; width: 340px; border: 2px solid gray; margin: 0.8rem auto; padding: 0.8rem; font-size: 1rem; }
+    .main h2 { color: black; text-align: center; }
+    input[type="text"], input[type="email"], input[type="password"], input[type="date"], select {
+      width: 100%; padding: 8px; margin: 6px 0; border: 1px solid #ccc; box-sizing: border-box;
+    }
+    label { color: black; font-weight: bold; }
+    button[type="submit"] { background-color: #1fcecb; color: white; border: none; padding: 10px 20px; font-size: 16px; margin-top: 8px; cursor: pointer; }
+    .msg { font-weight: bold; margin: 0.5rem auto; max-width: 480px; }
+  </style>
+</head>
+<body>
+  {% include "Nav.html" %}
+  <div class="main">
+    <h2>Registration</h2>
+    {% if feedback %}
+      {% if ok %}<p class="msg" style="color: green;">{{ feedback }}</p>{% else %}<p class="msg" style="color: darkred;">{{ feedback }}</p>{% endif %}
+    {% endif %}
+    {% if user %}<p>Logged in as {{ user.name }}</p>{% endif %}
+    <form action="/signup" method="post">
+      <label for="account_type">Create As</label><br>
+      <select id="account_type" name="account_type">
+        <option value="CLIENT" {% if form_data.account_type == "CLIENT" %}selected{% endif %}>Client</option>
+        {% if can_create_employee %}<option value="EMPLOYEE" {% if form_data.account_type == "EMPLOYEE" %}selected{% endif %}>Employee</option>{% endif %}
+      </select><br>
+      <label for="emp_role">Employee Role (if employee)</label><br>
+      <input type="text" id="emp_role" name="emp_role" value="{{ form_data.emp_role }}"><br>
+      <label for="fname">First Name</label><br>
+      <input type="text" id="fname" name="fname" value="{{ form_data.fname }}" required><br>
+      <label for="lname">Last Name</label><br>
+      <input type="text" id="lname" name="lname" value="{{ form_data.lname }}" required><br>
+      <label for="dob">Date of Birth</label><br>
+      <input type="date" id="dob" name="dob" value="{{ form_data.dob }}"><br>
+      <label for="email">Email</label><br>
+      <input type="email" id="email" name="mail" value="{{ form_data.mail }}" required><br>
+      <label for="password">Password</label><br>
+      <input type="password" id="password" name="password"><br>
+      <label for="confirm_password">Confirm Password</label><br>
+      <input type="password" id="confirm_password" name="confirm_password"><br>
+      <label for="phone_number">Phone Number</label><br>
+      <input type="text" id="phone_number" name="phone" value="{{ form_data.phone }}"><br>
+      <label for="street">Street</label><br>
+      <input type="text" id="street" name="street" value="{{ form_data.street }}"><br>
+      <label for="city">City</label><br>
+      <input type="text" id="city" name="city" value="{{ form_data.city }}"><br>
+      <label for="state">State</label><br>
+      <input type="text" id="state" name="state" value="{{ form_data.state }}"><br>
+      <label for="zip">Zip Code</label><br>
+      <input type="text" id="zip" name="zip" value="{{ form_data.zip }}"><br>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</body>
 </html>

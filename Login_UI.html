@@ -1,74 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset ="UTF-8">
-        <title>Registration</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <style>
-            body {
-                background-color: #1fcecb;
-                text-align: center;            
-            }
-
-            .main {
-                background-color: grey;
-                width: 300px;
-                border: 2px solid gray;
-                margin: 0.5rem auto;
-                padding: 0.3rem;
-                font-size: 1.2rem;
-            }
-
-            .main h2 {
-                color: black;
-                text-align: center;
-            }
-
-            input[type="text"], input[type="email"], input[type="password"] {
-                width: 100%;
-                padding: 12px 20px;
-                margin: 8px 0;
-                display: inline-block;
-                border: 1px solid #ccc;
-                box-sizing: border-box;
-            }
-
-            label {
-                color: black;
-                font-weight: bold;
-            }
-
-            button[type="Log in"] {
-                        background-color: #1fcecb;
-                        color: white;
-                        border: none;
-                        padding: 10px 20px;
-                        text-align: center;
-                        text-decoration: none;
-                        display: inline-block;
-                        font-size: 16px;
-                        margin: 4px 2px;
-                        cursor: pointer;
-                    }
-        </style>
-    </head>
-    <body>
-        <div class="main">
-            <h2>Login</h2>
-            <form action="/login.php" method=post>
-                
-                <label for ="email">Email</label><br>
-                <input type="email" id="email" name="email" required><br>
-
-                <label for="password">Password</label><br>  
-                <input type="password" id="password" name="password" required><br>
-
-                <button type="submit">Log in</button>
-            </form>
-
-            <p>Don't have an account? <a href="Registration_UI.html">Register here</a></p>
-
-            <p>Forgot your password? <a href="ForgotPassword_UI.html">Click here</a></p>
-        </div>
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body { background-color: #1fcecb; text-align: center; }
+    .main { background-color: grey; width: 320px; border: 2px solid gray; margin: 0.8rem auto; padding: 0.8rem; }
+    input[type="email"], input[type="password"], select { width: 100%; padding: 8px; margin: 6px 0; border: 1px solid #ccc; box-sizing: border-box; }
+    label { color: black; font-weight: bold; }
+    button[type="submit"] { background-color: #1fcecb; color: white; border: none; padding: 10px 20px; font-size: 16px; margin-top: 8px; cursor: pointer; }
+    .msg { font-weight: bold; margin: 0.5rem auto; max-width: 420px; }
+  </style>
+</head>
+<body>
+  {% include "Nav.html" %}
+  <div class="main">
+    <h2>Login</h2>
+    {% if feedback %}
+      {% if ok %}<p class="msg" style="color: green;">{{ feedback }}</p>{% else %}<p class="msg" style="color: darkred;">{{ feedback }}</p>{% endif %}
+    {% endif %}
+    <form action="/login" method="post">
+      <label for="account_type">Account Type</label><br>
+      <select id="account_type" name="account_type">
+        <option value="CLIENT">Client</option>
+        <option value="EMPLOYEE">Employee</option>
+      </select><br>
+      <label for="email">Email</label><br>
+      <input type="email" id="email" name="email" required><br>
+      <label for="password">Password</label><br>
+      <input type="password" id="password" name="password" required><br>
+      <button type="submit">Log in</button>
+    </form>
+    <p>Don't have an account? <a href="/signup">Register here</a></p>
+    <p>Forgot your password? <a href="/forgot-password">Click here</a></p>
+  </div>
+</body>
 </html>
