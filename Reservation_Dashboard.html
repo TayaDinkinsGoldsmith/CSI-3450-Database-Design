@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Reservation Page1</title>
+  <title>Reservation Dashboard</title>
   <style>
     body { background-color: #1fcecb; text-align: center; }
     h3 { color: black; text-align: center; }
@@ -18,7 +18,7 @@
     {% if ok %}<p class="msg" style="color: green;">{{ feedback }}</p>{% else %}<p class="msg" style="color: darkred;">{{ feedback }}</p>{% endif %}
   {% endif %}
   {% if reservation_info.reservation_id %}
-  <p>RES_ID: {{ reservation_info.reservation_id }} | RES_STATUS: {{ reservation_info.reservation_status }} | ROOM_STATUS: {{ reservation_info.room_status }}</p>
+  <p>Reservation Status: {{ reservation_info.reservation_status }} | Room Status: {{ reservation_info.room_status }}</p>
   {% endif %}
   <p>Hello you can view your reservations below:</p>
   <form action="/Reservation_Dashboard" method="post">

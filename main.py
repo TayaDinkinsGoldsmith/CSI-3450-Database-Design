@@ -716,7 +716,7 @@ def client_reservation_book(
         return render_client_page(
             request,
             user,
-            feedback=f"Reservation created successfully (RES_ID {res_id}).",
+            feedback="Reservation created successfully.",
             ok=True,
             search_data=dict(DEFAULT_CLIENT_SEARCH),
         )
@@ -801,7 +801,7 @@ def client_reservation_modify(
         conn.commit()
         write_cur.close()
         cur.close()
-        return render_client_page(request, user, feedback=f"Reservation {res_id} updated successfully.", ok=True)
+        return render_client_page(request, user, feedback="Reservation updated successfully.", ok=True)
     except Exception as e:
         rollback_connection(conn)
         return render_client_page(request, user, feedback="Unable to modify reservation. Please try again.", ok=False)
@@ -845,7 +845,7 @@ def client_reservation_cancel(request: Request, res_id: int = Form(...)):
         conn.commit()
         write_cur.close()
         cur.close()
-        return render_client_page(request, user, feedback=f"Reservation {res_id} canceled.", ok=True)
+        return render_client_page(request, user, feedback="Reservation canceled successfully.", ok=True)
     except Exception as e:
         rollback_connection(conn)
         return render_client_page(request, user, feedback="Unable to cancel reservation. Please try again.", ok=False)
@@ -914,7 +914,7 @@ def reservation_action_page(
         cur.close()
         return render_reservation_page(
             request,
-            feedback=f"{action_label} successful for room {room_number} (RES_ID {reservation['RES_ID']}).",
+            feedback=f"{action_label} successful for room {room_number}.",
             ok=True,
             form_data=form_data,
             reservation_info={

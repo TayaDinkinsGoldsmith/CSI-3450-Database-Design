@@ -1,6 +1,8 @@
 <nav style="margin: 0.8rem auto; max-width: 900px; font-weight: bold; text-align: center;">
+  {% if not user %}
   <a href="/signup" style="color: #083344; margin: 0 0.3rem;">Signup</a> |
   <a href="/login" style="color: #083344; margin: 0 0.3rem;">Login</a> |
+  {% endif %}
   <a href="/forgot-password" style="color: #083344; margin: 0 0.3rem;">Forgot Password</a>
   {% if user %}
     {% if user.account_type == "CLIENT" %}
