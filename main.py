@@ -353,7 +353,12 @@ def signup_create_page(
         )
     except Exception as e:
         rollback_connection(conn)
-        return render_signup_page(request, feedback=f"Signup failed: {e}", ok=False, form_data=form_data)
+        return render_signup_page(
+            request,
+            feedback="Signup failed. Please verify your details and try again.",
+            ok=False,
+            form_data=form_data,
+        )
     finally:
         close_connection(conn)
 
@@ -418,7 +423,7 @@ def login_submit_page(
         }
         return RedirectResponse(url="/client-reservations", status_code=303)
     except Exception as e:
-        return render_login_page(request, feedback=f"Login failed: {e}", ok=False)
+        return render_login_page(request, feedback="Login failed. Please try again.", ok=False)
     finally:
         close_connection(conn)
 
@@ -443,11 +448,15 @@ def forgot_password_submit_page(request: Request, email: str = Form("")):
             return render_forgot_password_page(request, feedback="No account found for that email.", ok=False)
         return render_forgot_password_page(
             request,
-            feedback="Email found. Password reset is not implemented in Option A schema.",
+            feedback="Email found. Please contact the front desk to reset your password.",
             ok=True,
         )
     except Exception as e:
-        return render_forgot_password_page(request, feedback=f"Lookup failed: {e}", ok=False)
+        return render_forgot_password_page(
+            request,
+            feedback="Unable to process your request right now. Please try again.",
+            ok=False,
+        )
     finally:
         close_connection(conn)
 
@@ -524,7 +533,7 @@ def profile_update_page(
             cur.close()
             return render_profile_page(
                 request,
-                feedback=f"No CLIENT row found for CLIENT_ID={client_id}. Please sign up first.",
+                feedback="Account not found. Please sign up first.",
                 ok=False,
                 form_data=form_data,
             )
@@ -532,13 +541,18 @@ def profile_update_page(
         cur.close()
         return render_profile_page(
             request,
-            feedback="Profile updated successfully. Password fields are UI-only in Option A schema.",
+            feedback="Profile updated successfully.",
             ok=True,
             form_data=form_data,
         )
     except Exception as e:
         rollback_connection(conn)
-        return render_profile_page(request, feedback=f"Update failed: {e}", ok=False, form_data=form_data)
+        return render_profile_page(
+            request,
+            feedback="Profile update failed. Please try again.",
+            ok=False,
+            form_data=form_data,
+        )
     finally:
         close_connection(conn)
 
@@ -612,7 +626,13 @@ def client_reservation_search(
             available_rooms=available,
         )
     except Exception as e:
-        return render_client_page(request, user, feedback=f"Search failed: {e}", ok=False, search_data=search_data)
+        return render_client_page(
+            request,
+            user,
+            feedback="Search failed. Please try different dates.",
+            ok=False,
+            search_data=search_data,
+        )
     finally:
         close_connection(conn)
 
@@ -702,7 +722,13 @@ def client_reservation_book(
         )
     except Exception as e:
         rollback_connection(conn)
-        return render_client_page(request, user, feedback=f"Booking failed: {e}", ok=False, search_data=search_data)
+        return render_client_page(
+            request,
+            user,
+            feedback="Booking failed. Please try again.",
+            ok=False,
+            search_data=search_data,
+        )
     finally:
         close_connection(conn)
 
@@ -778,7 +804,7 @@ def client_reservation_modify(
         return render_client_page(request, user, feedback=f"Reservation {res_id} updated successfully.", ok=True)
     except Exception as e:
         rollback_connection(conn)
-        return render_client_page(request, user, feedback=f"Modify failed: {e}", ok=False)
+        return render_client_page(request, user, feedback="Unable to modify reservation. Please try again.", ok=False)
     finally:
         close_connection(conn)
 
@@ -822,7 +848,7 @@ def client_reservation_cancel(request: Request, res_id: int = Form(...)):
         return render_client_page(request, user, feedback=f"Reservation {res_id} canceled.", ok=True)
     except Exception as e:
         rollback_connection(conn)
-        return render_client_page(request, user, feedback=f"Cancel failed: {e}", ok=False)
+        return render_client_page(request, user, feedback="Unable to cancel reservation. Please try again.", ok=False)
     finally:
         close_connection(conn)
 
@@ -899,7 +925,12 @@ def reservation_action_page(
         )
     except Exception as e:
         rollback_connection(conn)
-        return render_reservation_page(request, feedback=f"Action failed: {e}", ok=False, form_data=form_data)
+        return render_reservation_page(
+            request,
+            feedback="Unable to complete that action. Please try again.",
+            ok=False,
+            form_data=form_data,
+        )
     finally:
         close_connection(conn)
 
@@ -983,7 +1014,12 @@ def housekeeping_action_page(
         )
     except Exception as e:
         rollback_connection(conn)
-        return render_housekeeping_page(request, feedback=f"Action failed: {e}", ok=False, form_data=form_data)
+        return render_housekeeping_page(
+            request,
+            feedback="Unable to complete that action. Please try again.",
+            ok=False,
+            form_data=form_data,
+        )
     finally:
         close_connection(conn)
 
